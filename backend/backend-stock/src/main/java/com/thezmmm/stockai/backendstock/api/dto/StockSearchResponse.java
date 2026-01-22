@@ -8,8 +8,8 @@ import lombok.Data;
  * @description: FinnhubSearchResponse Represents the response from Finnhub stock search API
  */
 @Data
-public class FinnhubSearchResponse {
+public class StockSearchResponse {
 
     private int count;
-    private FinnhubStockInfo[] result;
+    private StockInfo[] result;
 }

@@ -8,7 +8,7 @@ import lombok.Data;
  * @description: StockInfo Represents stock information
  */
 @Data
-public class FinnhubStockInfo {
+public class StockInfo {
 
     private String symbol;        // Unique stock identifier
     private String displaySymbol; // Display symbol name

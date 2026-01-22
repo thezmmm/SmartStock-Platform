@@ -1,7 +1,7 @@
 package com.thezmmm.stockai.backendstock.api;
 
-import com.thezmmm.stockai.backendstock.api.dto.FinnhubSearchResponse;
-import com.thezmmm.stockai.backendstock.api.dto.FinnhubStockInfo;
+import com.thezmmm.stockai.backendstock.api.dto.StockSearchResponse;
+import com.thezmmm.stockai.backendstock.api.dto.StockInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +18,7 @@ public class FinnhubClientTest {
 
     @Test
     void testGetAllStocks() {
-        List<FinnhubStockInfo> stocks = finnhubClient.getAllStocks();
+        List<StockInfo> stocks = finnhubClient.getAllStocks();
         assertNotNull(stocks);
         assertFalse(stocks.isEmpty(), "Stock list should not be empty");
         System.out.println("First stock: " + stocks.get(0));
@@ -26,7 +26,7 @@ public class FinnhubClientTest {
 
     @Test
     void testSearchStocks() {
-        FinnhubSearchResponse response = finnhubClient.searchStocks("AAPL");
+        StockSearchResponse response = finnhubClient.searchStocks("AAPL");
         assertNotNull(response);
         System.out.println("Search results: " + response.getResult());
     }

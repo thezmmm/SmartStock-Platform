@@ -50,3 +50,6 @@ out/
 *.tmp
 *.swp
 *.DS_Store
+
+/application.properties
+/application.yml

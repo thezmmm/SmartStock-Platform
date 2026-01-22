@@ -1,7 +1,8 @@
 package com.thezmmm.stockai.backendstock.api;
 
-import com.thezmmm.stockai.backendstock.api.dto.FinnhubSearchResponse;
-import com.thezmmm.stockai.backendstock.api.dto.FinnhubStockInfo;
+import com.thezmmm.stockai.backendstock.api.dto.Quote;
+import com.thezmmm.stockai.backendstock.api.dto.StockSearchResponse;
+import com.thezmmm.stockai.backendstock.api.dto.StockInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -35,10 +36,10 @@ public class FinnhubClient implements StockApiClient{
      * @return List of FinnhubStockInfo
      */
     @Override
-    public List<FinnhubStockInfo> getAllStocks() {
+    public List<StockInfo> getAllStocks() {
         try{
             String url = String.format("%s/stock/symbol?exchange=US&token=%s", baseUrl, apiKey);
-            FinnhubStockInfo[] stocks = restTemplate.getForObject(url, FinnhubStockInfo[].class);
+            StockInfo[] stocks = restTemplate.getForObject(url, StockInfo[].class);
             if (stocks == null) {
                 return Collections.emptyList();
             }
@@ -56,11 +57,29 @@ public class FinnhubClient implements StockApiClient{
      * @return FinnhubSearchResponse
      */
     @Override
-    public FinnhubSearchResponse searchStocks(String query) {
+    public StockSearchResponse searchStocks(String query) {
         try {
             String url = String.format("%s/search?q=%s&token=%s", baseUrl, query, apiKey);
-            FinnhubSearchResponse response = restTemplate.getForObject(url, FinnhubSearchResponse.class);
+            StockSearchResponse response = restTemplate.getForObject(url, StockSearchResponse.class);
             return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Get real-time quote data for US stocks.
+     *
+     * @param symbol
+     * @return FinnhubQuote
+     */
+    @Override
+    public Quote getQuote(String symbol) {
+        try {
+            String url = String.format("%s/quote?symbol=%s&token=%s", baseUrl, symbol, apiKey);
+            Quote quote = restTemplate.getForObject(url, Quote.class);
+            return quote;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
